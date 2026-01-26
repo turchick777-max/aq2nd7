@@ -164,9 +164,7 @@ body {
   border: 1px solid rgba(15,23,42,0.1);
   border-radius: 14px;
   padding: 5px 10px;
-  margin-bottom: 0;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 80px), calc(100% - 200px) calc(100% - 80px), calc(100% - 200px) 100%, 0 100%);
-  padding-bottom: 85px;
+  margin-bottom: 6px;
 }
 
 .hiw__svg {
@@ -177,15 +175,12 @@ body {
 
 /* Interactive panel */
 .hiw__panel {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 200px;
   background: rgba(255,255,255,0.72);
   border: 1px solid rgba(15,23,42,0.12);
   border-radius: 14px;
   overflow: hidden;
   box-shadow: var(--shadow);
+  max-width: calc(100% - 200px);
 }
 
 .hiw__panel-body {
@@ -452,14 +447,16 @@ body {
             <rect x="330" y="80" width="550" height="285" class="coreBoundary"/>
 
             <!-- LEGEND (inside SVG, bottom left) -->
-            <g class="legend-group" transform="translate(20, 450)">
+            <g class="legend-group" transform="translate(20, 390)">
               <text x="0" y="0" class="svgLabel" style="font-weight:700;font-size:10px;letter-spacing:0.08em;">LEGEND</text>
               <rect x="0" y="10" width="14" height="14" rx="2" fill="#D4F1F6" stroke="rgba(0,158,186,0.7)" stroke-width="1.5"/>
-              <text x="20" y="21" style="font:400 10px ui-sans-serif,system-ui;fill:rgba(15,23,42,0.75);">AQUINTAQA core module boundary (encapsulated/protected)</text>
-              <rect x="0" y="30" width="14" height="14" rx="2" fill="#fff" stroke="rgba(186,198,211,0.8)" stroke-width="1.5"/>
-              <text x="20" y="41" style="font:400 10px ui-sans-serif,system-ui;fill:rgba(15,23,42,0.75);">COTS-based auxiliary systems (intake, utilities, polishing, controls)</text>
-              <text x="0" y="60" style="font:italic 400 9px ui-sans-serif,system-ui;fill:rgba(100,116,139,0.8);">Note: sensitive setpoints, materials, and core control logic are disclosed stepwise under NDA.</text>
-              <text x="0" y="74" style="font:italic 400 9px ui-sans-serif,system-ui;fill:rgba(100,116,139,0.8);">Colour coding applies to modules only, not to streams.</text>
+              <text x="20" y="21" style="font:400 10px ui-sans-serif,system-ui;fill:rgba(15,23,42,0.75);">AQUINTAQA core module boundary</text>
+              <text x="20" y="33" style="font:400 10px ui-sans-serif,system-ui;fill:rgba(15,23,42,0.75);">(encapsulated/protected)</text>
+              <rect x="0" y="43" width="14" height="14" rx="2" fill="#fff" stroke="rgba(186,198,211,0.8)" stroke-width="1.5"/>
+              <text x="20" y="54" style="font:400 10px ui-sans-serif,system-ui;fill:rgba(15,23,42,0.75);">COTS-based auxiliary systems</text>
+              <text x="20" y="66" style="font:400 10px ui-sans-serif,system-ui;fill:rgba(15,23,42,0.75);">(intake, utilities, polishing, controls)</text>
+              <text x="0" y="85" style="font:italic 400 9px ui-sans-serif,system-ui;fill:rgba(100,116,139,0.8);">Note: sensitive setpoints, materials, and core control logic are disclosed stepwise under NDA.</text>
+              <text x="0" y="99" style="font:italic 400 9px ui-sans-serif,system-ui;fill:rgba(100,116,139,0.8);">Colour coding applies to modules only, not to streams.</text>
             </g>
           </svg>
         </div>
