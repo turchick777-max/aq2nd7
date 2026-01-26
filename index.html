@@ -92,7 +92,7 @@ body {
 
 /* Left sidebar */
 .hiw__left-sidebar {
-  width: 210px;
+  width: 250px;
   flex-shrink: 0;
   padding: 15px 10px;
   background: rgba(255,255,255,0.5);
@@ -155,6 +155,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .hiw__diagram-wrapper {
@@ -163,7 +164,9 @@ body {
   border: 1px solid rgba(15,23,42,0.1);
   border-radius: 14px;
   padding: 5px 10px;
-  margin-bottom: 6px;
+  margin-bottom: 0;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 80px), calc(100% - 200px) calc(100% - 80px), calc(100% - 200px) 100%, 0 100%);
+  padding-bottom: 85px;
 }
 
 .hiw__svg {
@@ -174,6 +177,10 @@ body {
 
 /* Interactive panel */
 .hiw__panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 200px;
   background: rgba(255,255,255,0.72);
   border: 1px solid rgba(15,23,42,0.12);
   border-radius: 14px;
