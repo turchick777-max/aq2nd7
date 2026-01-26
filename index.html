@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOW IT WORKS - AQUINTAQA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F7FA;
+  --grid-minor: rgba(15, 23, 42, 0.055);
+  --grid-major: rgba(15, 23, 42, 0.085);
+  --frame: rgba(15, 23, 42, 0.18);
+  --frame2: rgba(15, 23, 42, 0.12);
+  --accent: #009EBA;
+  --core-fill: #D4F1F6;
+  --cots-fill: #FFFFFF;
+  --cots-stroke: rgba(15,23,42,0.22);
+  --stream: rgba(71,85,105,0.65);
+  --stream-dash: rgba(71,85,105,0.45);
+  --conc: #D28437;
+  --conc-fill: #FCF0E5;
+  --shadow: 0 12px 40px rgba(15,23,42,0.06);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hiw {
+  min-height: 100vh;
+  padding: 10px;
+  background:
+    /* Minor grid lines (32px) */
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+    /* Major grid lines (160px) */
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    /* Minor grid dots at intersections (32px) */
+    radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.15) 0, rgba(15, 23, 42, 0.15) 1px, rgba(15, 23, 42, 0.08) 1.5px, transparent 2px),
+    /* Major grid dots at intersections (160px) */
+    radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.18) 0, rgba(15, 23, 42, 0.18) 1.5px, rgba(15, 23, 42, 0.08) 2px, transparent 2.5px);
+  background-color: var(--bg);
+  background-size: 32px 32px, 32px 32px, 160px 160px, 160px 160px, 32px 32px, 160px 160px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+}
+
+.hiw__sheet {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1400px;
+  padding: 10px;
+}
+
+.hiw__frame {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--frame2);
+  pointer-events: none;
+}
+
+.hiw__corner { position: absolute; width: 12px; height: 12px; }
+.hiw__corner.tl { top: -3px; left: -3px; border-left: 3px solid rgba(15, 23, 42, 0.35); border-top: 3px solid rgba(15, 23, 42, 0.35); }
+.hiw__corner.tr { top: -3px; right: -3px; border-right: 3px solid rgba(15, 23, 42, 0.35); border-top: 3px solid rgba(15, 23, 42, 0.35); }
+.hiw__corner.bl { bottom: -3px; left: -3px; border-left: 3px solid rgba(15, 23, 42, 0.35); border-bottom: 3px solid rgba(15, 23, 42, 0.35); }
+.hiw__corner.br { bottom: -3px; right: -3px; border-right: 3px solid rgba(15, 23, 42, 0.35); border-bottom: 3px solid rgba(15, 23, 42, 0.35); }
+
+.hiw__header {
+  padding: 5px 20px 10px;
+  text-align: center;
+}
+
+.hiw__title {
+  font: 600 22px/1.1 ui-sans-serif, system-ui;
+  letter-spacing: 0.32em;
+  color: rgba(15,23,42,.62);
+}
+
+/* Main layout: sidebar left + diagram right */
+.hiw__main {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+/* Left sidebar */
+.hiw__left-sidebar {
+  width: 160px;
+  flex-shrink: 0;
+  padding: 15px 10px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 12px;
+}
+
+.hiw__stage-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hiw__stage-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.hiw__stage-btn:hover {
+  background: rgba(0,158,186,0.08);
+}
+
+.hiw__stage-btn.is-active {
+  background: rgba(0,158,186,0.15);
+}
+
+.hiw__stage-btn.is-active .hiw__stage-dot {
+  background: var(--accent);
+}
+
+.hiw__stage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(100,116,139,0.4);
+  flex-shrink: 0;
+}
+
+.hiw__stage-name {
+  font: 600 11px/1.3 ui-sans-serif, system-ui;
+  color: rgba(15,23,42,0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.hiw__stage-btn.is-active .hiw__stage-name {
+  color: var(--accent);
+}
+
+/* Diagram area */
+.hiw__diagram-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hiw__diagram-wrapper {
+  position: relative;
+  background: rgba(255,255,255,0.4);
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 14px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.hiw__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Interactive panel */
+.hiw__panel {
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(15,23,42,0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hiw__panel-body {
+  padding: 15px 20px;
+}
+
+.hiw__detail-kicker {
+  font: 700 10px ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  color: rgba(71,85,105,0.7);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.hiw__detail-title {
+  font: 700 20px/1.2 ui-sans-serif, system-ui;
+  color: rgba(15,23,42,0.9);
+  margin: 0 0 10px 0;
+}
+
+.hiw__detail-text {
+  font: 400 14px/1.6 ui-sans-serif, system-ui;
+  color: rgba(71,85,105,0.85);
+  max-width: 70ch;
+}
+
+/* Legend (HTML version) */
+.hiw__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 0;
+}
+
+.hiw__legend-title {
+  font: 700 10px ui-sans-serif, system-ui;
+  letter-spacing: 0.08em;
+  color: rgba(15,23,42,0.7);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.hiw__legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hiw__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hiw__legend-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1.5px solid;
+  flex-shrink: 0;
+}
+
+.hiw__legend-swatch.core {
+  background: var(--core-fill);
+  border-color: rgba(0,158,186,0.7);
+}
+
+.hiw__legend-swatch.cots {
+  background: #fff;
+  border-color: rgba(186,198,211,0.8);
+}
+
+.hiw__legend-label {
+  font: 400 11px/1.35 ui-sans-serif, system-ui;
+  color: rgba(15,23,42,0.75);
+}
+
+.hiw__legend-note {
+  font: 400 10px/1.5 ui-sans-serif, system-ui;
+  color: rgba(210,132,55,0.9);
+  margin-top: 4px;
+}
+
+.hiw__legend-note-secondary {
+  font: 500 10px/1.5 ui-sans-serif, system-ui;
+  color: rgba(15,23,42,0.65);
+}
+
+/* SVG Styles */
+.svgLabel { font: 500 12px 'Space Mono', 'IBM Plex Mono', 'Courier New', monospace; fill: rgba(15,23,42,.7); }
+.svgSubLabel { font: 400 10px 'Space Mono', 'IBM Plex Mono', 'Courier New', monospace; fill: rgba(15,23,42,.7); }
+.svgCalloutBox { fill: none; stroke: none; }
+.svgCalloutText { font: 500 10px 'Space Mono', 'IBM Plex Mono', 'Courier New', monospace; fill: rgba(15,23,42,.7); }
+.moduleBox { stroke-width: 1; filter: none; }
+.module .moduleTitle { font: 600 13px 'Space Mono', 'IBM Plex Mono', 'Courier New', monospace; fill: rgba(15,23,42,.88); }
+.module .moduleSub { font: 400 10px 'Space Mono', 'IBM Plex Mono', 'Courier New', monospace; fill: rgba(15,23,42,.88); }
+.module.core .moduleBox { fill: var(--core-fill); stroke: rgba(0,158,186,.5); }
+.module.cots .moduleBox { fill: var(--cots-fill); stroke: rgba(15,23,42,0.18); }
+.module.concentrate .moduleBox { fill: var(--conc-fill); stroke: rgba(210,132,55,.5); }
+.module.concentrate .moduleTitle { fill: rgba(180,100,30,.9); }
+.module.concentrate .moduleSub { fill: rgba(180,100,30,.65); }
+.stream { fill: none; stroke: var(--stream); stroke-width: 1; stroke-dasharray: 4 3; }
+.stream.accent { stroke: var(--stream); stroke-width: 1; stroke-dasharray: 4 3; }
+.stream.concentrate { stroke: rgba(210,132,55,.6); stroke-width: 1; stroke-dasharray: 4 3; }
+.coreBoundary { fill: none; stroke: rgba(0,158,186,.45); stroke-width: 1; stroke-dasharray: 6 4; }
+.module.is-active .moduleBox { stroke-width: 1.5; stroke: var(--accent); filter: drop-shadow(0 0 6px rgba(0,158,186,0.2)); }
+
+@media (max-width: 1100px) {
+  .hiw__main { flex-direction: column; }
+  .hiw__left-sidebar { width: 100%; flex-direction: row; }
+  .hiw__stage-nav { flex-direction: row; flex-wrap: wrap; }
+}
+
+@media (max-width: 768px) {
+  .hiw__title { font-size: 20px; letter-spacing: 0.2em; }
+  .hiw__legend { align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<section class="hiw" id="how-it-works">
+  <div class="hiw__sheet">
+    <div class="hiw__frame" aria-hidden="true">
+      <span class="hiw__corner tl"></span>
+      <span class="hiw__corner tr"></span>
+      <span class="hiw__corner bl"></span>
+      <span class="hiw__corner br"></span>
+    </div>
+
+    <header class="hiw__header">
+      <h2 class="hiw__title">HOW IT WORKS</h2>
+    </header>
+
+    <!-- Main: Left sidebar + Diagram -->
+    <div class="hiw__main">
+      <!-- Left sidebar with stages -->
+      <aside class="hiw__left-sidebar">
+        <nav class="hiw__stage-nav">
+          <button class="hiw__stage-btn is-active" data-stage="0">
+            <span class="hiw__stage-dot"></span>
+            <span class="hiw__stage-name">Intake<br>&amp;&nbsp;Stabilization</span>
+          </button>
+          <button class="hiw__stage-btn" data-stage="1">
+            <span class="hiw__stage-dot"></span>
+            <span class="hiw__stage-name">Gas-Sorbent</span>
+          </button>
+          <button class="hiw__stage-btn" data-stage="2">
+            <span class="hiw__stage-dot"></span>
+            <span class="hiw__stage-name">Sorption</span>
+          </button>
+          <button class="hiw__stage-btn" data-stage="3">
+            <span class="hiw__stage-dot"></span>
+            <span class="hiw__stage-name">Separation</span>
+          </button>
+          <button class="hiw__stage-btn" data-stage="4">
+            <span class="hiw__stage-dot"></span>
+            <span class="hiw__stage-name">Mineralization<br>& Polishing</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Diagram area -->
+      <div class="hiw__diagram-area">
+        <div class="hiw__diagram-wrapper">
+          <svg class="hiw__svg" viewBox="0 0 900 530" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--stream)" />
+              </marker>
+              <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--stream)" />
+              </marker>
+              <marker id="arrowConc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(210,132,55,.6)" />
+              </marker>
+            </defs>
+
+            <!-- Feed Water label (top left) -->
+            <text x="120" y="35" text-anchor="middle" class="svgLabel">Feed water</text>
+            <text x="120" y="49" text-anchor="middle" class="svgSubLabel">(seawater / brackish /</text>
+            <text x="120" y="61" text-anchor="middle" class="svgSubLabel">high-salinity / variable)</text>
+
+            <!-- Line from feed water down to INTAKE -->
+            <path d="M 120 70 L 120 150 L 180 150" class="stream" marker-end="url(#arrow)"/>
+
+            <!-- INTAKE (left side, top row) -->
+            <g id="m-intake" class="module cots">
+              <rect x="180" y="120" width="140" height="60" rx="0" class="moduleBox"/>
+              <text x="250" y="145" text-anchor="middle" class="moduleTitle">Intake</text>
+              <text x="250" y="163" text-anchor="middle" class="moduleTitle">& Stabilization</text>
+            </g>
+
+            <!-- Inert gas label (top center-right) -->
+            <g class="svgCallout">
+              <rect x="430" y="90" width="110" height="36" rx="0" class="svgCalloutBox"/>
+              <text x="485" y="106" text-anchor="middle" class="svgCalloutText" style="fill:#009EBA;">Inert carrier gas</text>
+              <text x="485" y="118" text-anchor="middle" class="svgCalloutText" style="fill:#009EBA;">+ proprietary sorbent</text>
+            </g>
+
+            <!-- Vertical line from Inert carrier down to Gas-Sorbent -->
+            <path d="M 485 126 L 485 160" class="stream" marker-end="url(#arrow)"/>
+
+            <!-- GAS-SORBENT (center, top row) -->
+            <g id="m-dosing" class="module core">
+              <rect x="410" y="160" width="150" height="60" rx="0" class="moduleBox"/>
+              <text x="485" y="185" text-anchor="middle" class="moduleTitle">Gas-Sorbent</text>
+              <text x="485" y="203" text-anchor="middle" class="moduleSub">(Dosing)</text>
+            </g>
+
+            <!-- Horizontal line from Intake to Gas-Sorbent -->
+            <path d="M 320 150 L 350 150 L 350 190 L 410 190" class="stream" marker-end="url(#arrow)"/>
+
+            <!-- Line from Gas-Sorbent to Sorption -->
+            <path d="M 560 190 L 695 190" class="stream" marker-end="url(#arrow)"/>
+
+            <!-- SORPTION (right side, top row) -->
+            <g id="m-sorption" class="module core">
+              <rect x="695" y="110" width="90" height="150" rx="0" class="moduleBox"/>
+              <text x="740" y="180" text-anchor="middle" class="moduleTitle">Sorption</text>
+              <text x="740" y="198" text-anchor="middle" class="moduleSub">(Contactor)</text>
+            </g>
+
+            <!-- Line from Sorption down and left to Separation -->
+            <path d="M 785 190 L 820 190 L 820 320 L 500 320" class="stream" marker-end="url(#arrow)"/>
+
+            <!-- SEPARATION (center, middle row) -->
+            <g id="m-separation" class="module core">
+              <rect x="350" y="290" width="150" height="60" rx="0" class="moduleBox"/>
+              <text x="425" y="315" text-anchor="middle" class="moduleTitle">Separation</text>
+              <text x="425" y="333" text-anchor="middle" class="moduleSub">(Phase split)</text>
+            </g>
+
+            <!-- Line from Separation left to Concentrate -->
+            <path d="M 425 290 L 425 280 L 240 280 L 240 335 L 220 335" class="stream concentrate" marker-end="url(#arrowConc)"/>
+
+            <!-- CONCENTRATE (lower left) -->
+            <g id="m-concentrate">
+              <text x="120" y="320" text-anchor="middle" class="svgLabel" style="fill:rgba(210,132,55,.9);">Concentrate / residual stream</text>
+              <text x="120" y="335" text-anchor="middle" class="svgSubLabel" style="fill:rgba(210,132,55,.75);">(typically &lt;5% of flow;</text>
+              <text x="120" y="348" text-anchor="middle" class="svgSubLabel" style="fill:rgba(210,132,55,.75);">controlled output)</text>
+            </g>
+
+            <!-- Line from Separation down to Mineralization -->
+            <path d="M 350 320 L 320 320 L 320 415 L 440 415" class="stream" marker-end="url(#arrow)"/>
+
+            <!-- MINERALIZATION (center bottom) -->
+            <g id="m-polishing" class="module cots">
+              <rect x="440" y="385" width="200" height="60" rx="0" class="moduleBox"/>
+              <text x="540" y="413" text-anchor="middle" class="moduleTitle">Mineralization</text>
+              <text x="540" y="431" text-anchor="middle" class="moduleTitle">& Polishing</text>
+            </g>
+
+            <!-- Line from Mineralization right to DRINKING -->
+            <path d="M 640 415 L 760 415 L 760 455" class="stream" marker-end="url(#arrow)"/>
+
+            <!-- DRINKING WATER (bottom right) -->
+            <g id="m-drinking">
+              <text x="760" y="475" text-anchor="middle" class="svgLabel">Drinking</text>
+              <text x="760" y="493" text-anchor="middle" class="svgLabel">Water</text>
+            </g>
+
+            <!-- Core boundary -->
+            <rect x="330" y="80" width="550" height="285" class="coreBoundary"/>
+
+            <!-- LEGEND (inside SVG, bottom left) -->
+            <g class="legend-group" transform="translate(20, 450)">
+              <text x="0" y="0" class="svgLabel" style="font-weight:700;font-size:10px;letter-spacing:0.08em;">LEGEND</text>
+              <rect x="0" y="10" width="14" height="14" rx="2" fill="#D4F1F6" stroke="rgba(0,158,186,0.7)" stroke-width="1.5"/>
+              <text x="20" y="21" style="font:400 10px ui-sans-serif,system-ui;fill:rgba(15,23,42,0.75);">AQUINTAQA core module boundary (encapsulated/protected)</text>
+              <rect x="0" y="30" width="14" height="14" rx="2" fill="#fff" stroke="rgba(186,198,211,0.8)" stroke-width="1.5"/>
+              <text x="20" y="41" style="font:400 10px ui-sans-serif,system-ui;fill:rgba(15,23,42,0.75);">COTS-based auxiliary systems (intake, utilities, polishing, controls)</text>
+              <text x="0" y="60" style="font:italic 400 9px ui-sans-serif,system-ui;fill:rgba(100,116,139,0.8);">Note: sensitive setpoints, materials, and core control logic are disclosed stepwise under NDA.</text>
+              <text x="0" y="74" style="font:italic 400 9px ui-sans-serif,system-ui;fill:rgba(100,116,139,0.8);">Colour coding applies to modules only, not to streams.</text>
+            </g>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Interactive panel -->
+    <div class="hiw__panel">
+      <div class="hiw__panel-body">
+        <div class="hiw__detail-kicker" id="detailKicker">STAGE 1</div>
+        <h3 class="hiw__detail-title" id="detailTitle">INTAKE & STABILIZATION</h3>
+        <p class="hiw__detail-text" id="detailText">Seawater or brackish water intake with coarse debris protection and flow stabilization. No heavy pre-treatment required.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  const stages = [
+    { id: 'intake', kicker: 'STAGE 1', title: 'INTAKE & STABILIZATION', detail: 'Seawater or brackish water intake with coarse debris protection and flow stabilization. No heavy pre-treatment required.' },
+    { id: 'dosing', kicker: 'STAGE 2', title: 'GAS-SORBENT DOSING', detail: 'Inert gas is combined with our gas-sorbent formulation and precisely dosed into the intake flow. This step stabilizes water chemistry and prepares the feed for sorption.' },
+    { id: 'sorption', kicker: 'STAGE 3', title: 'SORPTION (CONTACTOR)', detail: 'Salt ions, hardness and dissolved organics are bound to the sorbent surface. The process runs under mild conditions — no membranes, no high pressures, no boiling.' },
+    { id: 'separation', kicker: 'STAGE 4', title: 'SEPARATION (PHASE SPLIT)', detail: 'Purified water is separated from the loaded sorbent by mechanical/physical means. No reverse osmosis or thermal distillation required. Residual stream is <5% of input flow.' },
+    { id: 'polishing', kicker: 'STAGE 5', title: 'MINERALIZATION & POLISHING', detail: 'Final conditioning and polishing to deliver consistent drinking water quality (taste/mineral balance) per target specification.' }
+  ];
+
+  const moduleMap = {
+    'intake': document.getElementById('m-intake'),
+    'dosing': document.getElementById('m-dosing'),
+    'sorption': document.getElementById('m-sorption'),
+    'separation': document.getElementById('m-separation'),
+    'polishing': document.getElementById('m-polishing')
+  };
+
+  const sideBtns = document.querySelectorAll('.hiw__stage-btn');
+  const detailKicker = document.getElementById('detailKicker');
+  const detailTitle = document.getElementById('detailTitle');
+  const detailText = document.getElementById('detailText');
+
+  let currentStage = 0;
+
+  function setActiveStage(index) {
+    currentStage = index;
+    const stage = stages[index];
+
+    sideBtns.forEach((b, i) => b.classList.toggle('is-active', i === index));
+
+    Object.values(moduleMap).forEach(m => m.classList.remove('is-active'));
+    if (moduleMap[stage.id]) moduleMap[stage.id].classList.add('is-active');
+
+    detailKicker.textContent = stage.kicker;
+    detailTitle.textContent = stage.title;
+    detailText.textContent = stage.detail;
+  }
+
+  sideBtns.forEach((btn, i) => btn.addEventListener('click', () => setActiveStage(i)));
+
+  setActiveStage(0);
+})();
+</script>
+
+</body>
+</html>
