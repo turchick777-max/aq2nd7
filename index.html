@@ -210,7 +210,10 @@ body {
 .hiw__detail-text {
   font: 400 14px/1.6 ui-sans-serif, system-ui;
   color: rgba(71,85,105,0.85);
-  max-width: 70ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Legend (HTML version) */
