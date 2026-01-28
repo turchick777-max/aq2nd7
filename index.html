@@ -103,21 +103,31 @@ body {
 .hiw__stage-nav {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: 100%;
-  justify-content: space-evenly;
+  gap: 0;
+  position: relative;
+}
+
+.hiw__stage-nav::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 25px;
+  bottom: 25px;
+  width: 2px;
+  background: rgba(100,116,139,0.2);
 }
 
 .hiw__stage-btn {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 15px 12px;
+  padding: 12px;
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
   transition: color 0.2s;
+  position: relative;
 }
 
 .hiw__stage-btn:hover {
@@ -135,6 +145,8 @@ body {
   background: rgba(100,116,139,0.4);
   flex-shrink: 0;
   transition: background 0.2s;
+  position: relative;
+  z-index: 1;
 }
 
 .hiw__stage-name {
