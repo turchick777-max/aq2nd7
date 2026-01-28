@@ -98,7 +98,7 @@ body {
   background: rgba(255,255,255,0.5);
   border: 1px solid rgba(15,23,42,0.1);
   border-radius: 12px;
-  max-height: 400px;
+  align-self: stretch;
 }
 
 .hiw__stage-nav {
@@ -106,14 +106,16 @@ body {
   flex-direction: column;
   gap: 0;
   position: relative;
+  height: 100%;
+  justify-content: space-between;
 }
 
-.hiw__stage-nav::before {
+.hiw__stage-btn:not(:last-child)::after {
   content: '';
   position: absolute;
   left: 16px;
-  top: 25px;
-  bottom: 25px;
+  top: 20px;
+  height: calc(100% + 12px);
   width: 2px;
   background: rgba(100,116,139,0.2);
 }
