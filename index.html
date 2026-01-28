@@ -112,11 +112,12 @@ body {
 .hiw__stage-nav::before {
   content: '';
   position: absolute;
-  left: 17px;
-  top: 25px;
-  bottom: 25px;
+  left: 15px;
+  top: 0;
+  bottom: 0;
   width: 2px;
   background: rgba(100,116,139,0.25);
+  z-index: 1;
 }
 
 .hiw__stage-btn {
@@ -141,14 +142,15 @@ body {
 }
 
 .hiw__stage-dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: rgba(100,116,139,0.4);
   flex-shrink: 0;
   transition: background 0.2s;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--bg);
 }
 
 .hiw__stage-name {
