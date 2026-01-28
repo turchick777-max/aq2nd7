@@ -138,6 +138,7 @@ body {
 }
 
 .hiw__stage-btn.is-active .hiw__stage-dot {
+  border-color: var(--accent);
   background: var(--accent);
 }
 
@@ -145,9 +146,10 @@ body {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: rgba(100,116,139,0.4);
+  background: var(--bg);
+  border: 2px solid rgba(100,116,139,0.4);
   flex-shrink: 0;
-  transition: background 0.2s;
+  transition: border-color 0.2s;
   position: relative;
   z-index: 2;
 }
