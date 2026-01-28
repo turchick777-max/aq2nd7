@@ -36,6 +36,7 @@ body {
 .hiw {
   min-height: 100vh;
   padding: 10px;
+  position: relative;
   background:
     /* Minor grid lines (32px) */
     linear-gradient(var(--grid-minor) 1px, transparent 1px),
@@ -52,11 +53,63 @@ body {
   background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
 }
 
+.hiw::before,
+.hiw::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.12) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hiw::before {
+  top: 0;
+  left: 0;
+  mask-image: radial-gradient(ellipse 120% 120% at top left, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 120% 120% at top left, black 0%, transparent 70%);
+}
+
+.hiw::after {
+  bottom: 0;
+  right: 0;
+  mask-image: radial-gradient(ellipse 120% 120% at bottom right, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 120% 120% at bottom right, black 0%, transparent 70%);
+}
+
 .hiw__sheet {
   position: relative;
   margin: 0 auto;
   max-width: 1400px;
   padding: 10px;
+}
+
+.hiw__sheet::before,
+.hiw__sheet::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.12) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hiw__sheet::before {
+  top: 0;
+  right: 0;
+  mask-image: radial-gradient(ellipse 120% 120% at top right, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 120% 120% at top right, black 0%, transparent 70%);
+}
+
+.hiw__sheet::after {
+  bottom: 0;
+  left: 0;
+  mask-image: radial-gradient(ellipse 120% 120% at bottom left, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 120% 120% at bottom left, black 0%, transparent 70%);
 }
 
 .hiw__frame {
