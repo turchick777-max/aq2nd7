@@ -190,18 +190,21 @@ body {
 /* Interactive panel */
 .hiw__panel {
   position: absolute;
-  top: 620px;
+  top: 540px;
   left: 0;
   width: calc(100% - 240px);
   background: rgba(255,255,255,0.72);
   border: 1px solid rgba(15,23,42,0.12);
   border-radius: 14px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: var(--shadow);
+  clip-path: polygon(0 0, 0 80px, 50% 80px, 50% 0, 100% 0, 100% 100%, 0 100%);
+  padding-top: 90px;
 }
 
 .hiw__panel-body {
   padding: 10px 20px;
+  margin-top: -90px;
 }
 
 .hiw__detail-kicker {
@@ -216,7 +219,8 @@ body {
 .hiw__detail-title {
   font: 700 20px/1.2 ui-sans-serif, system-ui;
   color: rgba(15,23,42,0.9);
-  margin: 0 0 10px 0;
+  margin: -80px 0 10px 0;
+  padding: 15px 20px;
 }
 
 .hiw__detail-text {
