@@ -163,9 +163,9 @@ body {
   background: rgba(255,255,255,0.4);
   border: 1px solid rgba(15,23,42,0.1);
   border-radius: 14px;
-  padding: 5px 10px 85px 10px;
+  padding: 5px 10px 105px 10px;
   margin-bottom: 0;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 240px) 100%, calc(100% - 240px) calc(100% - 80px), 0 calc(100% - 80px));
+  clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 240px) 100%, calc(100% - 240px) calc(100% - 100px), 0 calc(100% - 100px));
 }
 
 .hiw__svg {
@@ -177,7 +177,7 @@ body {
 /* Interactive panel */
 .hiw__panel {
   position: absolute;
-  bottom: 0;
+  bottom: 5px;
   left: 0;
   width: calc(100% - 240px);
   background: rgba(255,255,255,0.72);
@@ -430,22 +430,22 @@ body {
             </g>
 
             <!-- Line from Separation down to Mineralization -->
-            <path d="M 350 320 L 320 320 L 320 415 L 440 415" class="stream" marker-end="url(#arrow)"/>
+            <path d="M 350 320 L 320 320 L 320 430 L 490 430" class="stream" marker-end="url(#arrow)"/>
 
             <!-- MINERALIZATION (center bottom) -->
             <g id="m-polishing" class="module cots">
-              <rect x="440" y="385" width="200" height="60" rx="0" class="moduleBox"/>
-              <text x="540" y="413" text-anchor="middle" class="moduleTitle">Mineralization</text>
-              <text x="540" y="431" text-anchor="middle" class="moduleTitle">& Polishing</text>
+              <rect x="490" y="400" width="200" height="60" rx="0" class="moduleBox"/>
+              <text x="590" y="428" text-anchor="middle" class="moduleTitle">Mineralization</text>
+              <text x="590" y="446" text-anchor="middle" class="moduleTitle">& Polishing</text>
             </g>
 
             <!-- Line from Mineralization right to DRINKING -->
-            <path d="M 640 415 L 820 415 L 820 455" class="stream" marker-end="url(#arrow)"/>
+            <path d="M 690 430 L 750 430 L 750 470" class="stream" marker-end="url(#arrow)"/>
 
             <!-- DRINKING WATER (bottom right corner) -->
             <g id="m-drinking">
-              <text x="820" y="470" text-anchor="middle" class="svgLabel">Drinking</text>
-              <text x="820" y="488" text-anchor="middle" class="svgLabel">Water</text>
+              <text x="750" y="485" text-anchor="middle" class="svgLabel">Drinking</text>
+              <text x="750" y="500" text-anchor="middle" class="svgLabel">Water</text>
             </g>
 
             <!-- Core boundary -->
