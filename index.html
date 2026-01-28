@@ -191,20 +191,46 @@ body {
 /* Interactive panel */
 .hiw__panel {
   position: absolute;
-  top: 710px;
+  top: 640px;
   left: 0;
   width: calc(100% - 240px);
+  filter: drop-shadow(0 12px 40px rgba(15,23,42,0.06));
+}
+
+.hiw__panel-header {
+  position: relative;
+  width: 320px;
+  padding: 15px 20px;
   background: rgba(255,255,255,0.72);
   border: 1px solid rgba(15,23,42,0.12);
-  border-radius: 0;
-  box-shadow: var(--shadow);
+  border-bottom: none;
+}
+
+.hiw__panel-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.72);
 }
 
 .hiw__panel-body {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  grid-template-rows: auto auto;
-  padding: 60px 20px 15px 20px;
+  position: relative;
+  padding: 15px 20px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(15,23,42,0.12);
+}
+
+.hiw__panel-body::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 320px;
+  height: 2px;
+  background: rgba(255,255,255,0.72);
 }
 
 .hiw__detail-kicker {
@@ -220,16 +246,11 @@ body {
   font: 700 20px/1.2 ui-sans-serif, system-ui;
   color: rgba(15,23,42,0.9);
   margin: 0;
-  grid-column: 1;
-  grid-row: 1;
-  transform: translateY(-45px);
 }
 
 .hiw__detail-text {
   font: 400 14px/1.6 ui-sans-serif, system-ui;
   color: rgba(71,85,105,0.85);
-  grid-column: 1 / -1;
-  grid-row: 2;
 }
 
 /* Legend (HTML version) */
@@ -489,9 +510,11 @@ body {
 
     <!-- Interactive panel -->
     <div class="hiw__panel">
-      <div class="hiw__panel-body">
+      <div class="hiw__panel-header">
         <div class="hiw__detail-kicker" id="detailKicker">STAGE 1</div>
         <h3 class="hiw__detail-title" id="detailTitle">INTAKE & STABILIZATION</h3>
+      </div>
+      <div class="hiw__panel-body">
         <p class="hiw__detail-text" id="detailText">Seawater or brackish water intake with coarse debris protection and flow stabilization. No heavy pre-treatment required.</p>
       </div>
     </div>
