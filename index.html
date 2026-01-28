@@ -194,15 +194,26 @@ body {
   top: 710px;
   left: 0;
   width: calc(100% - 240px);
+}
+
+.hiw__panel-title-box {
+  position: absolute;
+  left: 0;
+  top: -70px;
+  width: 320px;
+  padding: 12px 20px;
   background: rgba(255,255,255,0.72);
   border: 1px solid rgba(15,23,42,0.12);
   border-radius: 14px;
-  overflow: visible;
   box-shadow: var(--shadow);
 }
 
 .hiw__panel-body {
-  padding: 40px 20px 10px;
+  padding: 15px 20px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(15,23,42,0.12);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
 }
 
 .hiw__detail-kicker {
@@ -217,7 +228,7 @@ body {
 .hiw__detail-title {
   font: 700 20px/1.2 ui-sans-serif, system-ui;
   color: rgba(15,23,42,0.9);
-  margin: -55px 0 10px 0;
+  margin: 0;
 }
 
 .hiw__detail-text {
@@ -486,9 +497,11 @@ body {
 
     <!-- Interactive panel -->
     <div class="hiw__panel">
-      <div class="hiw__panel-body">
+      <div class="hiw__panel-title-box">
         <div class="hiw__detail-kicker" id="detailKicker">STAGE 1</div>
         <h3 class="hiw__detail-title" id="detailTitle">INTAKE & STABILIZATION</h3>
+      </div>
+      <div class="hiw__panel-body">
         <p class="hiw__detail-text" id="detailText">Seawater or brackish water intake with coarse debris protection and flow stabilization. No heavy pre-treatment required.</p>
       </div>
     </div>
